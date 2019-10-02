@@ -14,7 +14,7 @@ class Page {
 		"data"=>[]
 	];
 
-	public function __construct($opts = array(), $tpl_dir = "/ecommerce/views/")
+	public function __construct($opts = array(), $tpl_dir = "/views/")
 	{
 
 		$this->defaults["data"]["session"] = $_SESSION;
@@ -34,14 +34,14 @@ class Page {
 
 		if ($this->options['data']) $this->setData($this->options['data']);
 
-		if ($this->options['header'] === true) $this->tpl->draw("header", false);
+		if ($this->options['header'] === true) $this->tpl->draw("header");
 
 	}
 
 	public function __destruct()
 	{
 
-		if ($this->options['footer'] === true) $this->tpl->draw("footer", false);
+		if ($this->options['footer'] === true) $this->tpl->draw("footer");
 
 	}
 

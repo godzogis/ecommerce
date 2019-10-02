@@ -4,7 +4,7 @@ require_once("vendor/autoload.php");
 require_once("functions.php");
 
 use Hcode\Model\User;
-use Hcode\Slim\Slim;
+use \Slim\Slim;
 use Hcode\Page;
 use Hcode\PageAdmin;
 
