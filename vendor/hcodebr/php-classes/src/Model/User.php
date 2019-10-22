@@ -10,7 +10,8 @@ class User extends Model {
 	const SESSION = "User";
 
 	protected $fields = [
-		"iduser", "idperson", "deslogin", "despassword", "inadmin", "dtergister"
+		"iduser", "idperson", "deslogin", "despassword", "inadmin", "dtergister",
+		"desperson", "desemail", "nrphone"
 	];
 
 	public static function login($login, $password)
@@ -73,7 +74,7 @@ class User extends Model {
 	}
 
 
-	public static function listAll()
+	public static function listAll()  // funcionando lista usuarios
 	{
 
 		$sql = new Sql();
@@ -96,13 +97,14 @@ class User extends Model {
 			":nrphone"=>$this->getnrphone(),
 			":inadmin"=>$this->getinadmin()
 		));
-
-		$this->setData($results[0]);
-
+ 
+		$this->setData($results);
+var_dump($results);
+exit;
 	}
 
 
-	public function get($iduser)
+	public function get($iduser)  // mostra no modo editar
 	{
 
 		$sql = new Sql();
@@ -111,17 +113,17 @@ class User extends Model {
 			":iduser"=>$iduser
 		));
 
+
 		$data = $results[0];
 
-		$data['desperson'] = utf8_encode($data['desperson']);
-
+		$data["desperson"] = utf8_encode($data["desperson"]);
 
 		$this->setData($data);
 
 	}
 
 
-	public function update()
+	public function update()   // atualizado base de dados usuarios
 	{
 
 		$sql = new Sql();
@@ -136,7 +138,7 @@ class User extends Model {
 			":inadmin"=>$this->getinadmin()
 		));
 
-		$this->setData($results[0]);		
+		$this->setData($results);		
 
 	}
 

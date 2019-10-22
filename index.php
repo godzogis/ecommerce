@@ -3,10 +3,10 @@ session_start();
 require_once("vendor/autoload.php");
 require_once("functions.php");
 
-use Hcode\Model\User;
+use \Hcode\Model\User;
 use \Slim\Slim;
-use Hcode\Page;
-use Hcode\PageAdmin;
+use \Hcode\Page;
+use \Hcode\PageAdmin;
 
 $app = new Slim();
 
@@ -101,7 +101,7 @@ $app->get("/admin/users/:iduser/delete", function($iduser){
 });
 
 
-$app->get('/admin/users/:iduser', function($iduser) {
+$app->get('/admin/users/:iduser', function($iduser) { // pegar informações e colocar no form
 
 	User::verifyLogin();
 
@@ -118,7 +118,7 @@ $app->get('/admin/users/:iduser', function($iduser) {
 });
 
 
-$app->post("/admin/users/create", function () {
+$app->post("/admin/users/create", function () {  // para criar usuario
 
  	User::verifyLogin();
 
@@ -126,13 +126,14 @@ $app->post("/admin/users/create", function () {
 
  	$_POST["inadmin"] = (isset($_POST["inadmin"])) ? 1 : 0;
 
- 	$_POST['despassword'] = password_hash($_POST["despassword"], PASSWORD_DEFAULT, [
-
+	$_POST['despassword'] = password_hash($_POST["despassword"], PASSWORD_DEFAULT, [
  		"cost"=>12
-
  	]);
 
  	$user->setData($_POST);
+
+var_dump($user);
+//exit;
 
 	$user->save();
 
@@ -142,7 +143,7 @@ $app->post("/admin/users/create", function () {
 });
 
 
-$app->post("/admin/users/:iduser", function($iduser){
+$app->post("/admin/users/:iduser", function($iduser){ // para fazer update
 
 	User::verifyLogin();
 
@@ -157,7 +158,7 @@ $app->post("/admin/users/:iduser", function($iduser){
 	$user->update();
 
 	Header("Location: /admin/users");
-
+	exit;
 
 
 });
